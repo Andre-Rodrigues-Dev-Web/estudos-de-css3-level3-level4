@@ -1,56 +1,100 @@
-body, html {
-  height: 100%;
+body {
   margin: 0;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgb(50 50 50 / 80%) 0%, rgb(0 0 0 / 45%) 100%), radial-gradient(at top center, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.40) 120%) #989898;
+  background-blend-mode: multiply, multiply;
+  background-size: 400% 400%;
 }
 
-.cubo {
-  width: 200px;
-  height: 200px;
-  position: relative;
-  transform-style: preserve-3d;
-  transform: rotateX(45deg) rotateY(45deg);
+.cube-container {
+  perspective: 800px;
+  .cube {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    transform: rotateX(45deg) rotateY(45deg);
+    animation: rotateCube 5s linear infinite;
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(
+          to bottom,
+          rgba(29, 27, 27, 0.15) 0%,
+          rgba(0, 0, 0, 0.15) 100%
+        ),
+        radial-gradient(
+            at top center,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(0, 0, 0, 0.4) 120%
+          )
+          #989898;
+      background-blend-mode: multiply, multiply;
+      border: 1px solid #333;
+    }
+  }
 }
+
+
 
 .face {
   position: absolute;
   width: 200px;
   height: 200px;
-  line-height: 200px;
-  text-align: center;
-  font-size: 24px;
-  color: white;
-  border: 2px solid black;
+  background: linear-gradient(
+      to bottom,
+      rgba(29, 27, 27, 0.15) 0%,
+      rgba(0, 0, 0, 0.15) 100%
+    ),
+    radial-gradient(
+        at top center,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(0, 0, 0, 0.4) 120%
+      )
+      #989898;
+  background-blend-mode: multiply, multiply;
+  border: 1px solid #333;
 }
 
 .front {
-  background-color: #3498db;
   transform: translateZ(100px);
 }
-
 .back {
-  background-color: #e74c3c;
-  transform: translateZ(-100px) rotateY(180deg);
+  transform: rotateY(180deg) translateZ(100px);
 }
-
-.top {
-  background-color: #2ecc71;
-  transform: rotateX(90deg) translateY(-100px);
-}
-
-.bottom {
-  background-color: #f1c40f;
-  transform: rotateX(-90deg) translateY(100px);
-}
-
 .left {
-  background-color: #9b59b6;
-  transform: rotateY(-90deg) translateX(-100px);
+  transform: rotateY(-90deg) translateZ(100px);
+}
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+.top {
+  transform: rotateX(90deg) translateZ(100px);
+}
+.bottom {
+  transform: rotateX(-90deg) translateZ(100px);
 }
 
-.right {
-  background-color: #34495e;
-  transform: rotateY(90deg) translateX(100px);
+@keyframes rotateCube {
+  from {
+    transform: rotateX(0) rotateY(0);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+@keyframes gradientAnimation {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
